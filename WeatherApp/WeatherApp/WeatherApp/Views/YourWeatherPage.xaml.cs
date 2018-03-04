@@ -2,9 +2,9 @@
 
 namespace WeatherApp.Views
 {
-    public partial class YourWeather : ContentPage
+    public partial class YourWeatherPage : ContentPage
     {
-        public YourWeather()
+        public YourWeatherPage()
         {
             InitializeComponent();
         }

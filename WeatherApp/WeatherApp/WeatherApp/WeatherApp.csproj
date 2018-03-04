@@ -27,7 +27,7 @@
     <EmbeddedResource Include="Views\WeatherMasterDetailPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\YourWeather.xaml">
+    <EmbeddedResource Include="Views\YourWeatherPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\CustomNavigationPage.xaml">
@@ -36,7 +36,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Update="Views\YourWeather.xaml.cs">
-      <DependentUpon>YourWeather.xaml</DependentUpon>
+      <DependentUpon>YourWeatherPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\YourWeatherPage.xaml.cs">
+      <DependentUpon>YourWeatherPage.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
 </Project>

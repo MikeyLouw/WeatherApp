@@ -8,7 +8,7 @@
              xmlns:behaviors="clr-namespace:Prism.Behaviors;assembly=Prism.Forms" 
              xmlns:ioc="clr-namespace:Prism.Ioc;assembly=Prism.Forms" 
              Title="Weather" 
-             x:Class="WeatherApp.Views.YourWeather"
+             x:Class="WeatherApp.Views.YourWeatherPage"
              NavigationPage.SetHasNavigationBar="true">
 
 

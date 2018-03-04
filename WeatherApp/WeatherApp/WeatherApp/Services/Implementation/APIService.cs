@@ -17,7 +17,7 @@ namespace WeatherApp.Services.Implementation
             HttpClient = new HttpClient(new HttpClientHandler(), true);
             HttpClient.Timeout = TimeSpan.FromSeconds(30);
 #if DEBUG
-            HttpClient.BaseAddress = new Uri("");
+            HttpClient.BaseAddress = new Uri("api.openweathermap.org/data/2.5/weather?");
 #else
             HttpClient.BaseAddress = new Uri("");
 #endif
