@@ -9,7 +9,7 @@
              xmlns:ioc="clr-namespace:Prism.Ioc;assembly=Prism.Forms" 
              Title="Weather" 
              x:Class="WeatherApp.Views.YourWeatherPage"
-             NavigationPage.SetHasNavigationBar="true">
+             NavigationPage.HasNavigationBar="true">
 
 
     <StackLayout>

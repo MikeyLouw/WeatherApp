@@ -9,7 +9,7 @@
                   xmlns:ioc="clr-namespace:Prism.Ioc;assembly=Prism.Forms" 
                   x:Class="WeatherApp.Views.WeatherMasterDetailPage">
     <MasterDetailPage.Master>
-        <ContentPage Title="{Binding Title}" BackgroundColor="Gray">
+        <ContentPage Title="MasterDetails" BackgroundColor="Gray">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="120" />

@@ -26,7 +26,7 @@ namespace WeatherApp
         {
             InitializeComponent();
 
-            await NavigationService.NavigateAsync("NavigationPage/MainPage");
+            await NavigationService.NavigateAsync("/WeatherMasterDetailPage/CustomNavigationPage/YourWeatherPage");
         }
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
