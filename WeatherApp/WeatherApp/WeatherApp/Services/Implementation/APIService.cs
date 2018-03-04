@@ -18,7 +18,7 @@ namespace WeatherApp.Services.Implementation
             HttpClient = new HttpClient(new HttpClientHandler(), true);
             HttpClient.Timeout = TimeSpan.FromSeconds(30);
 #if DEBUG
-            HttpClient.BaseAddress = new Uri("api.openweathermap.org/data/2.5/weather?");
+            HttpClient.BaseAddress = new Uri("http://api.openweathermap.org/data/2.5/weather?");
 #else
             HttpClient.BaseAddress = new Uri("");
 #endif
@@ -31,7 +31,7 @@ namespace WeatherApp.Services.Implementation
             try
             {
                 var location = await geoService.GetLocation();
-                var responseMessage = await HttpClient.GetAsync(string.Format("lat={0}&lon={1}", new string[2]{location.Latitude.ToString(), location.Longitude.ToString()}));
+                var responseMessage = await HttpClient.GetAsync(string.Format("lat={0}&lon={1}&APPID={2}", new string[3]{location.Latitude.ToString(), location.Longitude.ToString(), "6302600fce0cfcad49292b308785552e"}));
                 var contentBody = await responseMessage.Content.ReadAsStringAsync();
                 var responseObject = JsonConvert.DeserializeObject<T>(contentBody);
                 return responseObject;
