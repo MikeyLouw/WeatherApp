@@ -42,7 +42,7 @@ namespace WeatherApp.Services.Implementation
             }
             catch (JsonSerializationException ex)
             {
-                throw new Exception("No data was returned");
+                throw new Exception("No data was returned", ex);
             }
             catch (Exception ex)
             {

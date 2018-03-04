@@ -22,6 +22,7 @@ namespace WeatherApp.ViewModels
         base (navigationService, pageDialogService)
         {
             this.aPIService = aPIService;
+            this.fileService = fileService;
 
             Task.Run(async () => { await this.LoadWeatherData(); });
         }
