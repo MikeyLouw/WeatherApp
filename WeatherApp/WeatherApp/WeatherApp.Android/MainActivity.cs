@@ -3,6 +3,8 @@ using Android.Content.PM;
 using Android.OS;
 using Prism;
 using Prism.Ioc;
+using WeatherApp.Services.Interfaces;
+using WeatherApp.Droid.Helpers;
 
 namespace WeatherApp.Droid
 {
@@ -26,6 +28,7 @@ namespace WeatherApp.Droid
         public void RegisterTypes(IContainerRegistry container)
         {
             // Register any platform specific implementations
+            container.Register<IFileService, FileService>();
         }
     }
 }

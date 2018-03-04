@@ -2,6 +2,8 @@
 using Prism;
 using Prism.Ioc;
 using UIKit;
+using WeatherApp.Services.Interfaces;
+using WeatherApp.iOS.Helpers;
 
 
 namespace WeatherApp.iOS
@@ -32,7 +34,7 @@ namespace WeatherApp.iOS
     {
         public void RegisterTypes(IContainerRegistry container)
         {
-
+            container.Register<IFileService, FileService>();
         }
     }
 }
