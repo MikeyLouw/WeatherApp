@@ -30,5 +30,11 @@ namespace WeatherApp.Droid.Helpers
             var filePath = Path.Combine(folderpath, string.Format("{0}.json", name));
             System.IO.File.WriteAllBytes(filePath, file);
         }
+
+        public bool FileExists(string name){
+            var folderpath = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
+            var filePath = Path.Combine(folderpath, string.Format("{0}.json", name));
+            return System.IO.File.Exists(filePath);
+        }
     }
 }

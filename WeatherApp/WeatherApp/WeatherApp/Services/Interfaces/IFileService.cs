@@ -7,5 +7,6 @@ namespace WeatherApp.Services.Interfaces
         void SaveFile(byte[] file, string name);
         string ReadFile(string name);
         void DeleteFile(string name);
+        bool FileExists(string name);
     }
 }

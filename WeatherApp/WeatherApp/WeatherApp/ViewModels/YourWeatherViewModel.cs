@@ -10,7 +10,7 @@ using System.Linq;
 
 namespace WeatherApp.ViewModels
 {
-    public class YourWeatherViewModel : BaseViewModel
+    public class YourWeatherViewModel : BaseViewModel, INavigationAware
     {
         IAPIService aPIService;
         IFileService fileService;
@@ -22,13 +22,20 @@ namespace WeatherApp.ViewModels
         base (navigationService, pageDialogService)
         {
             this.aPIService = aPIService;
+
+            Task.Run(async () => { await this.LoadWeatherData(); });
         }
 
         public async Task LoadWeatherData(){
             try
             {
                 var result = await this.aPIService.GetWeather(new Models.Weather.Welcome());
-                var IsSuccessfulDownload = await this.aPIService.GetLatestCities();
+
+                var IsSuccessfulDownload = true;
+                if (!fileService.FileExists("City_List")){
+                    IsSuccessfulDownload = await this.aPIService.GetLatestCities();
+                }
+
                 if (IsSuccessfulDownload){
                     var ReadStringFromFileSystem = this.fileService.ReadFile("City_List");
                     var Cities = JsonConvert.DeserializeObject<List<WeatherApp.Models.City.Welcome>>(ReadStringFromFileSystem);
@@ -40,6 +47,18 @@ namespace WeatherApp.ViewModels
             {
                 await pageDialogService.DisplayAlertAsync("Attention", ex.Message, "OK");
             }
+        }
+
+        public void OnNavigatedFrom(NavigationParameters parameters)
+        {
+        }
+
+        public void OnNavigatedTo(NavigationParameters parameters)
+        {
+        }
+
+        public void OnNavigatingTo(NavigationParameters parameters)
+        {
         }
     }
 }
