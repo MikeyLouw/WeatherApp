@@ -31,7 +31,7 @@ namespace WeatherApp.Services.Implementation
             try
             {
                 var location = await geoService.GetLocation();
-                var responseMessage = await HttpClient.GetAsync(string.Format("lat={0}&lon={1}", new string[2]{location.Latitude.ToString(), location.Longitude.ToString()}));
+                var responseMessage = await HttpClient.GetAsync(string.Format("lat={0}&lon={1}&APPID={2}", new string[3]{location.Latitude.ToString(), location.Longitude.ToString(), "6302600fce0cfcad49292b308785552e"}));
                 var contentBody = await responseMessage.Content.ReadAsStringAsync();
                 var responseObject = JsonConvert.DeserializeObject<T>(contentBody);
                 return responseObject;

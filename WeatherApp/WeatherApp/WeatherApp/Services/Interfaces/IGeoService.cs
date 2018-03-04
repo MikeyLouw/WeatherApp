@@ -7,5 +7,6 @@ namespace WeatherApp.Services.Interfaces
     public interface IGeoService
     {
         Task<Position> GetLocation();
+        Task<string> GetCountryName();
     }
 }

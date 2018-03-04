@@ -1,11 +1,12 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using Prism.Mvvm;
 using Prism.Navigation;
 using Prism.Services;
 namespace WeatherApp.ViewModels
 {
-    public class BaseViewModel : INotifyPropertyChanged
+    public class BaseViewModel : BindableBase, INotifyPropertyChanged
     {
         protected INavigationService navigationService;
         protected IPageDialogService pageDialogService;
