@@ -9,15 +9,17 @@
              xmlns:ioc="clr-namespace:Prism.Ioc;assembly=Prism.Forms" 
              Title="Weather" 
              x:Class="WeatherApp.Views.YourWeatherPage"
-             NavigationPage.HasNavigationBar="true">
+             NavigationPage.HasNavigationBar="true"
+             BackgroundColor="Gray">
 
+    <ContentPage.Content>
+        <StackLayout Orientation="Vertical" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+            <Label Text="{Binding Date}" TextColor="White" FontSize="18" HorizontalOptions="CenterAndExpand" Margin="10" />
+            <Image Source="{Binding WeatherImage}" Aspect="Fill" HeightRequest="100" WidthRequest="100" HorizontalOptions="CenterAndExpand" Margin="10,0,10,10" />
+            <Label Text="{Binding MaxTemp}" FontSize="25" TextColor="White" HorizontalOptions="CenterAndExpand" Margin="5" />
+            <Label Text="{Binding MinTemp}" FontSize="20" TextColor="White" HorizontalOptions="CenterAndExpand" Margin="5"/>
+            <Label Text="{Binding Location}" FontSize="16" TextColor="LightGray" HorizontalOptions="CenterAndExpand" Margin="5" />
+        </StackLayout>
+    </ContentPage.Content>
 
-    <StackLayout>
-        <Label Text="{Binding Date}" HorizontalOptions="CenterAndExpand" />
-        <Image Source="{Binding WeatherImage}" HorizontalOptions="CenterAndExpand" />
-        <Label Text="{Binding MaxTemperature}" HorizontalOptions="CenterAndExpand" />
-        <Label Text="{Binding MinTemperature}" HorizontalOptions="CenterAndExpand" />
-        <Label Text="{Binding FormattedLocation}" HorizontalOptions="CenterAndExpand" />
-    </StackLayout>
-    
 </ContentPage>

@@ -15,23 +15,20 @@ namespace WeatherApp.Services.Implementation
 
         public APIService(IGeoService geoService, IFileService fileService)
         {
-            HttpClient = new HttpClient(new HttpClientHandler(), true);
-            HttpClient.Timeout = TimeSpan.FromSeconds(30);
-#if DEBUG
-            HttpClient.BaseAddress = new Uri("http://api.openweathermap.org/data/2.5/weather?");
-#else
-            HttpClient.BaseAddress = new Uri("");
-#endif
+            HttpClient = new HttpClient();
+
             this.geoService = geoService;
             this.fileService = fileService;
         }
 
-        public async Task<T> GetWeather<T>(T expectedResonse)
+        public async Task<T> GetWeather<T>()
         {
             try
             {
                 var location = await geoService.GetLocation();
-                var responseMessage = await HttpClient.GetAsync(string.Format("lat={0}&lon={1}&APPID={2}", new string[3]{location.Latitude.ToString(), location.Longitude.ToString(), "6302600fce0cfcad49292b308785552e"}));
+
+                HttpClient.BaseAddress = new Uri("http://api.openweathermap.org/data/2.5/weather?units=metric&lat=" + location.Latitude.ToString() + "&lon=" + location.Longitude.ToString() + "&APPID=fbf2a0cc41b369f34bb58e2fc36c2199");
+                var responseMessage = await HttpClient.GetAsync("");
                 var contentBody = await responseMessage.Content.ReadAsStringAsync();
                 var responseObject = JsonConvert.DeserializeObject<T>(contentBody);
                 return responseObject;

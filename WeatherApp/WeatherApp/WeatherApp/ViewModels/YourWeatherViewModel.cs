@@ -21,37 +21,37 @@ namespace WeatherApp.ViewModels
         IFileService fileService;
         IGeoService geoService;
 
-        string DegreeSymbol = "&#186;";
+        string DegreeSymbol = "°";
         string BaseUrlImage = "http://openweathermap.org/img/w/";
 
         private string _Date;
         public string Date{
             get { return _Date; }
-            set { SetProperty(ref _Date, value); }
+            set { SetValue(ref _Date, value); }
         }
 
         private ImageSource _WeatherImage;
         public ImageSource WeatherImage{
             get { return _WeatherImage; }
-            set { SetProperty(ref _WeatherImage, value); }
+            set { SetValue(ref _WeatherImage, value); }
         }
 
         private string _MaxTemp;
         public string MaxTemp{
             get { return _MaxTemp; }
-            set { SetProperty(ref _MaxTemp, value); }
+            set { SetValue(ref _MaxTemp, value); }
         }
 
         private string _MinTemp;
         public string MinTemp{
             get { return _MinTemp; }
-            set { SetProperty(ref _MinTemp, value); }
+            set { SetValue(ref _MinTemp, value); }
         }
 
         private string _Location;
         public string Location{
             get { return _Location; }
-            set { SetProperty(ref _Location, value); }
+            set { SetValue(ref _Location, value); }
         }
 
         public YourWeatherViewModel(INavigationService navigationService, 
@@ -64,21 +64,19 @@ namespace WeatherApp.ViewModels
             this.aPIService = aPIService;
             this.fileService = fileService;
             this.geoService = geoService;
-
-            Task.Run(async () => { await this.LoadWeatherData(); });
         }
 
-        public async Task LoadWeatherData(){
+        public async Task LoadWeatherData() {
             try
             {
-                var result = await this.aPIService.GetWeather(new Models.Weather.Welcome());
+                var result = await this.aPIService.GetWeather<Models.Weather.Welcome>();
+                var CountryName = await this.geoService.GetCountryName();
 
-                Date = "TODAY, " + DateTime.Today.ToString("MMMM");
+                Date = "TODAY, " + DateTime.Today.Day + " " + DateTime.Today.ToString("MMMM") + " " + DateTime.Today.Year;
                 WeatherImage = ImageSource.FromUri(new Uri(BaseUrlImage + result.Weather.FirstOrDefault().Icon + ".png"));
                 MaxTemp = "max " + result.Main.TempMax + DegreeSymbol + "C";
-                MaxTemp = "min " + result.Main.TempMin + DegreeSymbol + "C";
-                Location = result.Name + ", ";
-                Location += await this.geoService.GetCountryName();
+                MinTemp = "min " + result.Main.TempMin + DegreeSymbol + "C";
+                Location = result.Name + ", " + CountryName;
             }
             catch (Exception ex)
             {
@@ -90,8 +88,9 @@ namespace WeatherApp.ViewModels
         {
         }
 
-        public void OnNavigatedTo(NavigationParameters parameters)
+        public async void OnNavigatedTo(NavigationParameters parameters)
         {
+            await this.LoadWeatherData();
         }
 
         public void OnNavigatingTo(NavigationParameters parameters)
