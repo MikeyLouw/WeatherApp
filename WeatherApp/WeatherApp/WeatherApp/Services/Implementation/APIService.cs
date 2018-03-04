@@ -10,9 +10,10 @@ namespace WeatherApp.Services.Implementation
     public class APIService : IAPIService
     {
         public IGeoService geoService;
+        public IFileService fileService;
         public static HttpClient HttpClient;
 
-        public APIService(IGeoService geoService)
+        public APIService(IGeoService geoService, IFileService fileService)
         {
             HttpClient = new HttpClient(new HttpClientHandler(), true);
             HttpClient.Timeout = TimeSpan.FromSeconds(30);
@@ -22,6 +23,7 @@ namespace WeatherApp.Services.Implementation
             HttpClient.BaseAddress = new Uri("");
 #endif
             this.geoService = geoService;
+            this.fileService = fileService;
         }
 
         public async Task<T> GetWeather<T>(T expectedResonse)
@@ -41,6 +43,21 @@ namespace WeatherApp.Services.Implementation
             catch (JsonSerializationException ex)
             {
                 throw new Exception("No data was returned");
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("An Error occured", ex);
+            }
+        }
+
+        public async Task<bool> GetLatestCities()
+        {
+            try
+            {
+                HttpClient.BaseAddress = new Uri("http://bulk.openweathermap.org/sample/city.list.json.gz");
+                var response = await HttpClient.GetByteArrayAsync("");
+                fileService.SaveFile(response, "City_List");
+                return true;
             }
             catch (Exception ex)
             {

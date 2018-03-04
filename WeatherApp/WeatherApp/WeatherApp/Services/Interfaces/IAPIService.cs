@@ -8,5 +8,6 @@ namespace WeatherApp.Services.Interfaces
     public interface IAPIService
     {
         Task<T> GetWeather<T>(T expectedResonse);
+        Task<bool> GetLatestCities();
     }
 }
