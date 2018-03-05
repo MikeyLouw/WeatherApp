@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+             prism:ViewModelLocator.AutowireViewModel="True"
+             x:Class="WeatherApp.Views.YourCitiesPage"
+             Title="Cities"
+             BackgroundColor="Gray">
+
+    <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+        <ActivityIndicator IsRunning="{Binding Loading}" IsVisible="{Binding Loading}" Color="White" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand"/>
+
+        <ListView VerticalOptions="FillAndExpand" ItemsSource="{Binding Cities}">
+            <ListView.Header>
+                <DataTemplate>
+                    <StackLayout>
+                        <SearchBar HorizontalOptions="FillAndExpand" VerticalOptions="StartAndExpand" Text="{Binding Search}" />
+                    </StackLayout>
+                </DataTemplate>
+            </ListView.Header>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <StackLayout>
+                            
+                        </StackLayout>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </StackLayout>
+    
+</ContentPage>

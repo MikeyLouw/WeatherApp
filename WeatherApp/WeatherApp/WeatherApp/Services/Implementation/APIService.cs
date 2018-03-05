@@ -4,6 +4,8 @@ using System.Threading.Tasks;
 using WeatherApp.Services.Interfaces;
 using System.Net.Http;
 using Newtonsoft.Json;
+using System.Diagnostics;
+using System.Xml.Linq;
 
 namespace WeatherApp.Services.Implementation
 {

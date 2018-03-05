@@ -35,6 +35,7 @@ namespace WeatherApp
             containerRegistry.RegisterForNavigation<CustomNavigationPage>();
             containerRegistry.RegisterForNavigation<WeatherMasterDetailPage, WeatherMasterDetailViewModel>();
             containerRegistry.RegisterForNavigation<YourWeatherPage, YourWeatherViewModel>();
+            containerRegistry.RegisterForNavigation<YourCitiesPage>();
 
             //Services
             containerRegistry.Register<IAPIService, APIService>();

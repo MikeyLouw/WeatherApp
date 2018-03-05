@@ -24,6 +24,13 @@ namespace WeatherApp.ViewModels
         string DegreeSymbol = "°";
         string BaseUrlImage = "http://openweathermap.org/img/w/";
 
+        private bool _Loading;
+        public bool Loading
+        {
+            get { return _Loading; }
+            set { SetValue(ref _Loading, value); }
+        }
+
         private string _Date;
         public string Date{
             get { return _Date; }
@@ -90,27 +97,13 @@ namespace WeatherApp.ViewModels
 
         public async void OnNavigatedTo(NavigationParameters parameters)
         {
+            Loading = true;
             await this.LoadWeatherData();
+            Loading = false;
         }
 
         public void OnNavigatingTo(NavigationParameters parameters)
         {
-        }
-
-        public async void DownloadCities(){
-            var IsSuccessfulDownload = true;
-            if (!fileService.FileExists("City_List"))
-            {
-                IsSuccessfulDownload = await this.aPIService.GetLatestCities();
-            }
-
-            if (IsSuccessfulDownload)
-            {
-                var ReadStringFromFileSystem = this.fileService.ReadFile("City_List");
-                var Cities = JsonConvert.DeserializeObject<List<WeatherApp.Models.City.Welcome>>(ReadStringFromFileSystem);
-
-                var GetCityName = Cities.Where(x => x.Id == 0).FirstOrDefault().Name;
-            }
         }
     }
 }

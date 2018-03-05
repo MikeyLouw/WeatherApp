@@ -21,7 +21,7 @@ namespace WeatherApp.Droid.Helpers
         {
             var folderpath = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
             var filePath = Path.Combine(folderpath, string.Format("{0}.json", name));
-            return System.IO.File.OpenText(filePath).ReadToEnd();
+            return System.IO.File.ReadAllText(filePath);
         }
 
         public void SaveFile(byte[] file, string name)

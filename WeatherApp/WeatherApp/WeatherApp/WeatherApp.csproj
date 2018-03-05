@@ -16,7 +16,6 @@
     <Folder Include="Models\" />
     <Folder Include="Services\Implementation\" />
     <Folder Include="Services\Interfaces\" />
-    <Folder Include="ViewModels\" />
     <Folder Include="CustomRenderers\" />
   </ItemGroup>
   <ItemGroup>
@@ -26,5 +25,10 @@
     <Compile Update="Views\YourWeatherPage.xaml.cs">
       <DependentUpon>YourWeatherPage.xaml</DependentUpon>
     </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Update="Views\YourCitiesPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
   </ItemGroup>
 </Project>
