@@ -31,6 +31,7 @@ namespace WeatherApp.Services.Implementation
 
                 HttpClient.BaseAddress = new Uri("http://api.openweathermap.org/data/2.5/weather?units=metric&lat=" + location.Latitude.ToString() + "&lon=" + location.Longitude.ToString() + "&APPID=fbf2a0cc41b369f34bb58e2fc36c2199");
                 var responseMessage = await HttpClient.GetAsync("");
+
                 var contentBody = await responseMessage.Content.ReadAsStringAsync();
                 var responseObject = JsonConvert.DeserializeObject<T>(contentBody);
                 return responseObject;

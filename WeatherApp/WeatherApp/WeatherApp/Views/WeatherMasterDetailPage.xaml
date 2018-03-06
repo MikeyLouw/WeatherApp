@@ -10,16 +10,23 @@
                   x:Class="WeatherApp.Views.WeatherMasterDetailPage">
     <MasterDetailPage.Master>
         <ContentPage BackgroundColor="Gray" Title="WeatherApp" Icon="hamburger" Padding="0,20,0,0">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="120" />
-                    <RowDefinition Height="120" />
-                </Grid.RowDefinitions>
-                
-                <Button Grid.Row="0" BackgroundColor="LightGray" Text="Your Weather" Command="{Binding NavigateCommand}" CommandParameter="CustomNavigationPage/YourWeatherPage" Margin="5" />
-                <Button Grid.Row="1" BackgroundColor="LightGray" Text="Your Cities" Command="{Binding NavigateCommand}" CommandParameter="CustomNavigationPage/YourCitiesPage" Margin="5"/>
-                
-            </Grid>
+
+            <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="Start" HeightRequest="50" BackgroundColor="DarkGray">
+                <StackLayout.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding NavigateCommand}" CommandParameter="CustomNavigationPage/YourWeatherPage" />
+                </StackLayout.GestureRecognizers>
+                <Label Text="Your Wheather" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand"/>
+            </StackLayout>
+            
+            <StackLayout BackgroundColor="Black" HeightRequest="1"></StackLayout>
+            
+            <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="Start" HeightRequest="50" BackgroundColor="DarkGray">
+                <StackLayout.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding NavigateCommand}" CommandParameter="CustomNavigationPage/YourCitiesPage" />
+                </StackLayout.GestureRecognizers>
+                <Label Text="Your Cities" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand"/>
+            </StackLayout>
+
         </ContentPage>
     </MasterDetailPage.Master>
 </MasterDetailPage>
