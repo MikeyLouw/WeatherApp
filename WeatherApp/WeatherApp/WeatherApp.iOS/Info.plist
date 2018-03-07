@@ -66,5 +66,9 @@
 		<string>MKDirectionsModeCar</string>
 		<string>MKDirectionsModeOther</string>
 	</array>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>Allow to use location</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Allow location when in use</string>
 </dict>
 </plist>
