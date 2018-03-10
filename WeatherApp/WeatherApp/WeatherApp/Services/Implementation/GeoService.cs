@@ -19,6 +19,8 @@ namespace WeatherApp.Services.Implementation
             try
             {
                 if (CrossGeolocator.IsSupported){
+                    var a = CrossGeolocator.Current.IsGeolocationEnabled;
+                    var b = CrossGeolocator.Current.IsGeolocationAvailable;
                     var position = await CrossGeolocator.Current.GetPositionAsync();
                     var locationDetails = await CrossGeolocator.Current.GetAddressesForPositionAsync(position);
                     return locationDetails.FirstOrDefault().CountryName;
@@ -36,7 +38,8 @@ namespace WeatherApp.Services.Implementation
         public async Task<Position> GetLocation()
         {
             if (CrossGeolocator.IsSupported){
-                return await CrossGeolocator.Current.GetPositionAsync();
+                var res = await CrossGeolocator.Current.GetPositionAsync();
+                return res;
             }
             else{
                 throw new NotSupportedException();
