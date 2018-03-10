@@ -11,14 +11,13 @@ namespace WeatherApp.Services.Implementation
 {
     public class APIService : IAPIService
     {
-        public IGeoService geoService;
-        public IFileService fileService;
-        public static HttpClient HttpClient;
+        private IGeoService geoService;
+        private IFileService fileService;
+        private IHttpClient httpClient;
 
-        public APIService(IGeoService geoService, IFileService fileService)
+        public APIService(IHttpClient httpClient, IGeoService geoService, IFileService fileService)
         {
-            HttpClient = new HttpClient();
-
+            this.httpClient = httpClient;
             this.geoService = geoService;
             this.fileService = fileService;
         }
@@ -29,8 +28,7 @@ namespace WeatherApp.Services.Implementation
             {
                 var location = await geoService.GetLocation();
 
-                HttpClient.BaseAddress = new Uri("http://api.openweathermap.org/data/2.5/weather?units=metric&lat=" + location.Latitude.ToString() + "&lon=" + location.Longitude.ToString() + "&APPID=fbf2a0cc41b369f34bb58e2fc36c2199");
-                var responseMessage = await HttpClient.GetAsync("");
+                var responseMessage = await this.httpClient.Get(location);
 
                 var contentBody = await responseMessage.Content.ReadAsStringAsync();
                 var responseObject = JsonConvert.DeserializeObject<T>(contentBody);
@@ -54,8 +52,7 @@ namespace WeatherApp.Services.Implementation
         {
             try
             {
-                HttpClient.BaseAddress = new Uri("http://bulk.openweathermap.org/sample/city.list.json.gz");
-                var response = await HttpClient.GetByteArrayAsync("");
+                var response = await httpClient.Post();
                 fileService.SaveFile(response, "City_List");
                 return true;
             }
