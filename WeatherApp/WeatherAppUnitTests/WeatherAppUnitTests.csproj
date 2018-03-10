@@ -109,6 +109,12 @@
       <Name>WeatherApp</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\WeatherApp\WeatherApp\WeatherApp.csproj">
+      <Project>{A8B3C4DB-B389-4EC8-B8A3-8D0DDB9A6CFF}</Project>
+      <Name>WeatherApp</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
