@@ -6,6 +6,7 @@ using System.Net.Http;
 using Newtonsoft.Json;
 using System.Diagnostics;
 using System.Xml.Linq;
+using System.IO;
 
 namespace WeatherApp.Services.Implementation
 {
@@ -53,7 +54,13 @@ namespace WeatherApp.Services.Implementation
             try
             {
                 var response = await httpClient.Post();
-                fileService.SaveFile(response, "City_List");
+                using (StreamReader sr = new StreamReader(response))
+                {
+                    // Read the stream to a string, and write the string to the console.
+                    String line = sr.ReadToEnd();
+                    Console.WriteLine(line);
+                }
+                fileService.SaveFile(new byte[10], "City_List");
                 return true;
             }
             catch (Exception ex)

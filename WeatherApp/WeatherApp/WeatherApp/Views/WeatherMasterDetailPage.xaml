@@ -11,17 +11,15 @@
     <MasterDetailPage.Master>
         <ContentPage BackgroundColor="Gray" Title="WeatherApp" Icon="hamburger" Padding="0,20,0,0">
             <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Margin="0,40,0,0">
-                <Label Text="WeatherApp" FontSize="25" TextColor="White" HorizontalOptions="CenterAndExpand" Margin="10"></Label>
-                <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="Start" HeightRequest="50" BackgroundColor="DarkGray">
-                <StackLayout.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding NavigateCommand}" CommandParameter="CustomNavigationPage/YourWeatherPage" />
-                </StackLayout.GestureRecognizers>
-                <Label Text="Your Wheather" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand"/>
+                <Label Text="WeatherApp" FontSize="25" TextColor="White" HorizontalOptions="CenterAndExpand" Margin="10"/>
+                <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="Start" HeightRequest="50" BackgroundColor="DarkGray" Margin="5">
+                    <StackLayout.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding NavigateCommand}" CommandParameter="CustomNavigationPage/YourWeatherPage" />
+                    </StackLayout.GestureRecognizers>
+                    <Label Text="Your Wheather" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand"/>
                 </StackLayout>
-            
-                <StackLayout BackgroundColor="Black" HeightRequest="1"></StackLayout>
-            
-                <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="Start" HeightRequest="50" BackgroundColor="DarkGray">
+
+                <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="Start" HeightRequest="50" BackgroundColor="DarkGray" Margin="5">
                 <StackLayout.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding NavigateCommand}" CommandParameter="CustomNavigationPage/YourCitiesPage" />
                 </StackLayout.GestureRecognizers>

@@ -32,9 +32,9 @@ namespace WeatherApp.iOS
 
     public class iOSInitializer : IPlatformInitializer
     {
-        public void RegisterTypes(IContainerRegistry container)
+        public void RegisterTypes(IContainerRegistry containerRegistry)
         {
-            container.Register<IFileService, FileService>();
+            containerRegistry.Register<IFileService, FileService>();
         }
     }
 }
