@@ -38,6 +38,7 @@ namespace WeatherApp
             containerRegistry.RegisterForNavigation<YourCitiesPage>();
 
             //Services
+            containerRegistry.Register<IHttpClient, HttpClientService>();
             containerRegistry.Register<IAPIService, APIService>();
             containerRegistry.Register<IGeoService, GeoService>();
         }

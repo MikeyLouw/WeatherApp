@@ -32,6 +32,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Test.cs" />
+    <Compile Include="ServiceTests\APIServiceTests.cs" />
+    <Compile Include="ServiceTests\GeoServiceTests.cs" />
+    <Compile Include="ViewModelTests\WeatherMasterDetailViewModelTests.cs" />
+    <Compile Include="ViewModelTests\YourCitiesPageViewModelTests.cs" />
+    <Compile Include="ViewModelTests\YourWeatherViewModelTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ViewModelTests\" />
