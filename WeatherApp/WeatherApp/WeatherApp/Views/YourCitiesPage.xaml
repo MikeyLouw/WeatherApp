@@ -8,7 +8,7 @@
              BackgroundColor="Gray">
 
     <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
-        <ActivityIndicator IsRunning="{Binding Loading}" IsVisible="{Binding Loading}" Color="White" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand"/>
+        <ActivityIndicator IsRunning="{Binding Loading}" IsVisible="{Binding Loading}" HeightRequest="150" Color="White" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand"/>
 
         <ListView VerticalOptions="FillAndExpand" ItemsSource="{Binding Cities}">
             <ListView.Header>

@@ -105,7 +105,7 @@ namespace WeatherApp.ViewModels
             }
             catch (Exception ex)
             {
-                await pageDialogService.DisplayAlertAsync("Attention", ex.Message, "OK");    
+                await pageDialogService.DisplayAlertAsync("Attention", ex.Message, "OK");
                 Loading = false;
             }
         }
