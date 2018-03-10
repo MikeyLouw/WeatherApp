@@ -80,7 +80,6 @@ namespace WeatherApp.ViewModels
         {
             Loading = true;
             await DownloadCities();
-            Loading = false;
         }
 
         public async Task DownloadCities()
@@ -101,10 +100,13 @@ namespace WeatherApp.ViewModels
 
                     var GetCityName = Cities.Where(x => x.Id == 0).FirstOrDefault().Name;
                 }
+
+                Loading = false;
             }
             catch (Exception ex)
             {
-                await pageDialogService.DisplayAlertAsync("Attention", ex.Message, "OK");                
+                await pageDialogService.DisplayAlertAsync("Attention", ex.Message, "OK");
+                Loading = false;
             }
         }
     }
