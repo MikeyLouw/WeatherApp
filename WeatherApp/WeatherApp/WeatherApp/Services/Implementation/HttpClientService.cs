@@ -23,6 +23,7 @@ namespace WeatherApp.Services.Implementation
             try
             {
                 _HttpClient.BaseAddress = new Uri(Constants.URL_WEATHER + location.Latitude.ToString() + "&lon=" + location.Longitude.ToString() + "&APPID=" + Constants.KEY_OPENWEATHER);
+                _HttpClient.Timeout = TimeSpan.FromSeconds(30);
                 return await _HttpClient.GetAsync("");
             }
             catch(ArgumentNullException ex)
@@ -40,7 +41,9 @@ namespace WeatherApp.Services.Implementation
             try
             {
                 _HttpClient.BaseAddress = new Uri(Constants.URL_CITIES);
-                return await _HttpClient.GetByteArrayAsync("");
+                _HttpClient.Timeout = TimeSpan.FromMinutes(3);
+                var res = await _HttpClient.GetByteArrayAsync("");
+                return res;
             }
             catch (ArgumentNullException ex)
             {

@@ -87,7 +87,7 @@ namespace WeatherApp.ViewModels
                 WeatherImage = ImageSource.FromUri(new Uri(BaseUrlImage + result.Weather.FirstOrDefault().Icon + ".png"));
                 MaxTemp = string.Format("max {0}{1}C", new object[2] { result.Main.TempMax, DegreeSymbol });
                 MinTemp = string.Format("min {0}{1}C", new object[2] { result.Main.TempMin, DegreeSymbol });
-                Location = string.Format("{0},{1}", new object[2] { result.Name, CountryName });
+                Location = string.Format("{0}, {1}", new object[2] { result.Name, CountryName });
             }
             catch (Exception ex)
             {

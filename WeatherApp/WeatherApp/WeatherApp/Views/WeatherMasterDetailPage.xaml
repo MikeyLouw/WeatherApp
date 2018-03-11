@@ -23,7 +23,7 @@
                 <StackLayout.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding NavigateCommand}" CommandParameter="CustomNavigationPage/YourCitiesPage" />
                 </StackLayout.GestureRecognizers>
-                <Label Text="Your Cities" TextColor="White" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand"/>
+                <Label Text="Cities" TextColor="White" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand"/>
                 </StackLayout>
             </StackLayout>
 

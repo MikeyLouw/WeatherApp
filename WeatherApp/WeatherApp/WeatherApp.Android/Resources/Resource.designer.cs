@@ -4425,6 +4425,9 @@ namespace WeatherApp.Droid
 			// aapt resource value: 0x7f0c004d
 			public const int RtlUnderlay_Widget_AppCompat_ActionButton_Overflow = 2131492941;
 			
+			// aapt resource value: 0x7f0c018c
+			public const int SplashPage = 2131493260;
+			
 			// aapt resource value: 0x7f0c00dd
 			public const int TextAppearance_AppCompat = 2131493085;
 			
