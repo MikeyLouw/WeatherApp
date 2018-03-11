@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using WeatherApp.Services.Interfaces;
 using Plugin.Geolocator.Abstractions;
 using System.IO;
+using System.Net.Http.Headers;
 
 namespace WeatherApp.Services.Implementation
 {
@@ -30,12 +31,14 @@ namespace WeatherApp.Services.Implementation
             }
         }
 
-        public async Task<Stream> Post()
+        public async Task<byte[]> Post()
         {
             try
             {
                 _HttpClient.BaseAddress = new Uri("http://bulk.openweathermap.org/sample/city.list.json.gz");
-                var response = await _HttpClient.GetStreamAsync("");
+                _HttpClient.DefaultRequestHeaders.Accept.Add(MediaTypeWithQualityHeaderValue.Parse("application/octet-stream"));
+                var response = await _HttpClient.GetByteArrayAsync("");
+                _HttpClient.DefaultRequestHeaders.Clear();
                 return response;
             }
             catch (Exception ex)

@@ -9,7 +9,7 @@
                   xmlns:ioc="clr-namespace:Prism.Ioc;assembly=Prism.Forms" 
                   x:Class="WeatherApp.Views.WeatherMasterDetailPage">
     <MasterDetailPage.Master>
-        <ContentPage BackgroundColor="Gray" BackgroundImage="weatherBackground.jpg" Title="WeatherApp" Icon="hamburger" Padding="0,20,0,0">
+        <ContentPage BackgroundColor="Gray" BackgroundImage="weatherBackground" Title="WeatherApp" Icon="hamburger" Padding="0,20,0,0">
             <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Margin="0,40,0,0">
                 <Label Text="WeatherApp" FontSize="25" TextColor="White" HorizontalOptions="CenterAndExpand" Margin="10"/>
                 <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="Start" HeightRequest="50" BackgroundColor="DarkGray" Margin="5">

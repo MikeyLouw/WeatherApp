@@ -5,6 +5,7 @@ using Prism.Navigation;
 using Prism.Services;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using WeatherApp.Services.Interfaces;
@@ -16,7 +17,7 @@ namespace WeatherApp.ViewModels
         IFileService fileService;
         IAPIService aPIService;
 
-        List<WeatherApp.Models.City.Welcome> list = new List<Models.City.Welcome>();
+        ObservableCollection<WeatherApp.Models.City.Welcome> list = new ObservableCollection<Models.City.Welcome>();
 
         private bool _Loading;
         public bool Loading
@@ -35,14 +36,14 @@ namespace WeatherApp.ViewModels
                 }
                 else
                 {
-                    Cities = list.Where(x => x.Name.ToLower().Contains(value.ToLower())).ToList();
+                    Cities = new ObservableCollection<Models.City.Welcome>(list.Where(x => x.Name.ToLower().Contains(value.ToLower())).ToList());
                 }
                 SetValue(ref _Search, value);
             }
         }
 
-        private List<WeatherApp.Models.City.Welcome> _Cities;
-        public List<WeatherApp.Models.City.Welcome> Cities
+        private ObservableCollection<WeatherApp.Models.City.Welcome> _Cities;
+        public ObservableCollection<WeatherApp.Models.City.Welcome> Cities
         {
             get { return _Cities; }
             set { SetValue(ref _Cities, value); }
@@ -59,8 +60,8 @@ namespace WeatherApp.ViewModels
         {
             try
             {
-                var stringResult = fileService.ReadFile("City_List");
-                list = JsonConvert.DeserializeObject<List<WeatherApp.Models.City.Welcome>>(stringResult);
+                var stringResult = await fileService.ReadFile("City_List");
+                list = new ObservableCollection<Models.City.Welcome>(JsonConvert.DeserializeObject<List<WeatherApp.Models.City.Welcome>>(stringResult));
             }
             catch (Exception ex)
             {
@@ -95,10 +96,9 @@ namespace WeatherApp.ViewModels
 
                 if (IsSuccessfulDownload)
                 {
-                    var ReadStringFromFileSystem = this.fileService.ReadFile("City_List");
-                    var Cities = JsonConvert.DeserializeObject<List<WeatherApp.Models.City.Welcome>>(ReadStringFromFileSystem);
-
-                    var GetCityName = Cities.Where(x => x.Id == 0).FirstOrDefault().Name;
+                    var ReadStringFromFileSystem = await this.fileService.ReadFile("City_List");
+                    var ReturnedCities = JsonConvert.DeserializeObject<List<WeatherApp.Models.City.Welcome>>(ReadStringFromFileSystem);
+                    Cities = new ObservableCollection<WeatherApp.Models.City.Welcome>(ReturnedCities);
                 }
 
                 Loading = false;
