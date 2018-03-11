@@ -10,6 +10,7 @@ using System.IO;
 using System.Text;
 using WeatherApp.Exceptions;
 using WeatherApp.Exceptions.FileExceptions;
+using WeatherApp.Settings;
 
 namespace WeatherApp.Services.Implementation
 {
@@ -17,9 +18,9 @@ namespace WeatherApp.Services.Implementation
     {
         private IGeoService geoService;
         private IFileService fileService;
-        private IHttpClient httpClient;
+        private IHttpClientService httpClient;
 
-        public APIService(IHttpClient httpClient, IGeoService geoService, IFileService fileService)
+        public APIService(IHttpClientService httpClient, IGeoService geoService, IFileService fileService)
         {
             this.httpClient = httpClient;
             this.geoService = geoService;
@@ -51,7 +52,7 @@ namespace WeatherApp.Services.Implementation
         {
             try
             {
-                fileService.SaveFile(await httpClient.DownloadFile(), "City_List");
+                fileService.SaveFile(await httpClient.DownloadFile(), Constants.FILE_NAME);
                 return true;
             }
             catch (FileWriteException ex)

@@ -6,7 +6,7 @@ using System.IO;
 
 namespace WeatherApp.Services.Interfaces
 {
-    public interface IHttpClient
+    public interface IHttpClientService
     {
         Task<byte[]> DownloadFile();
         Task<HttpResponseMessage> Get(Position location);

@@ -17,7 +17,7 @@ namespace WeatherApp.iOS.Helpers
             try
             {
                 var folderpath = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
-                var filePath = Path.Combine(folderpath, string.Format("{0}.json", name));
+                var filePath = Path.Combine(folderpath, string.Format("{0}.json.gz", name));
                 System.IO.File.Delete(filePath);
             }
             catch (Exception ex)
@@ -31,7 +31,7 @@ namespace WeatherApp.iOS.Helpers
             try
             {
                 var folderpath = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
-                var filePath = Path.Combine(folderpath, string.Format("{0}.json", name));
+                var filePath = Path.Combine(folderpath, string.Format("{0}.json.gz", name));
 
                 using (FileStream fInStream = new FileStream(filePath, FileMode.Open, FileAccess.Read))
                 {
@@ -62,7 +62,7 @@ namespace WeatherApp.iOS.Helpers
             try
             {
                 var folderpath = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
-                var filePath = Path.Combine(folderpath, string.Format("{0}.json", name));
+                var filePath = Path.Combine(folderpath, string.Format("{0}.json.gz", name));
                 System.IO.File.WriteAllBytes(filePath, file);
             }
             catch (Exception ex)
@@ -74,7 +74,7 @@ namespace WeatherApp.iOS.Helpers
         public bool FileExists(string name)
         {
             var folderpath = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
-            var filePath = Path.Combine(folderpath, string.Format("{0}.json", name));
+            var filePath = Path.Combine(folderpath, string.Format("{0}.json.gz", name));
             return System.IO.File.Exists(filePath);
         }
     }

@@ -12,5 +12,7 @@ namespace WeatherApp.Settings
         public const string URL_WEATHER = "http://api.openweathermap.org/data/2.5/weather?units=metric&lat=";
         public const string URL_CITIES = "http://bulk.openweathermap.org/sample/city.list.json.gz";
         public const string URL_WEATHERICON = "http://openweathermap.org/img/w/";
+        //LOCAL STORAGE NAMES
+        public const string FILE_NAME = "City_List";
     }
 }

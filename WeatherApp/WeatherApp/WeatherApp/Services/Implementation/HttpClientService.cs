@@ -10,7 +10,7 @@ using WeatherApp.Exceptions;
 
 namespace WeatherApp.Services.Implementation
 {
-    public class HttpClientService : IHttpClient
+    public class HttpClientService : IHttpClientService
     {
         private static HttpClient _HttpClient = new HttpClient();
 

@@ -10,6 +10,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using WeatherApp.Exceptions.FileExceptions;
 using WeatherApp.Services.Interfaces;
+using WeatherApp.Settings;
 
 namespace WeatherApp.ViewModels
 {
@@ -82,16 +83,16 @@ namespace WeatherApp.ViewModels
             {
                 Loading = true;
 
-                if (fileService.FileExists("City_List"))
+                if (fileService.FileExists(Constants.FILE_NAME))
                 {
-                    var DeserializedObject = JsonConvert.DeserializeObject<List<WeatherApp.Models.City.Welcome>>(await fileService.ReadFile("City_List"));
+                    var DeserializedObject = JsonConvert.DeserializeObject<List<WeatherApp.Models.City.Welcome>>(await fileService.ReadFile(Constants.FILE_NAME));
                     list = new ObservableCollection<Models.City.Welcome>(DeserializedObject);
                     Cities = new ObservableCollection<Models.City.Welcome>(DeserializedObject);
                 }
                 else
                 {
                     await aPIService.GetLatestCities();
-                    var ReadStringFromFileSystem = await this.fileService.ReadFile("City_List");
+                    var ReadStringFromFileSystem = await this.fileService.ReadFile(Constants.FILE_NAME);
                     var DeserializedObject = JsonConvert.DeserializeObject<List<WeatherApp.Models.City.Welcome>>(ReadStringFromFileSystem);
                     Cities = new ObservableCollection<WeatherApp.Models.City.Welcome>(DeserializedObject.OrderByDescending(x => x.Country == "ZA"));
                     list = new ObservableCollection<WeatherApp.Models.City.Welcome>(DeserializedObject.OrderByDescending(x => x.Country == "ZA"));

@@ -9,15 +9,18 @@
 
     <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
         <ActivityIndicator IsRunning="{Binding Loading}" IsVisible="{Binding Loading}" HeightRequest="150" Color="White" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand"/>
-        
-        <SearchBar TextColor="White" BackgroundColor="Gray" HorizontalOptions="FillAndExpand" VerticalOptions="StartAndExpand" Text="{Binding Search}" />
-
-        <ListView VerticalOptions="FillAndExpand" ItemsSource="{Binding Cities}" SeparatorVisibility="Default" SeparatorColor="DarkGray">
+      
+        <ListView VerticalOptions="FillAndExpand" ItemsSource="{Binding Cities}" SelectedItem="{Binding SelectedItem}" SeparatorVisibility="Default" SeparatorColor="DarkGray">
+            <ListView.Header>
+                <StackLayout>
+                    <SearchBar TextColor="White" BackgroundColor="Gray" HorizontalOptions="FillAndExpand" VerticalOptions="StartAndExpand" Text="{Binding Search}" />
+                </StackLayout>
+            </ListView.Header>
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
                         <StackLayout>
-                            <Label Text="{Binding Name}" VerticalOptions="CenterAndExpand" Margin="10" FontSize="Large" TextColor="White"/>
+                            <Label Text="{Binding Name}" VerticalOptions="CenterAndExpand" Margin="20,10,10,10" FontSize="Large" TextColor="White"/>
                         </StackLayout>
                     </ViewCell>
                 </DataTemplate>
