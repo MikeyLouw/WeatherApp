@@ -12,18 +12,18 @@
         <ContentPage BackgroundColor="Gray" Title="WeatherApp" Icon="hamburger" Padding="0,20,0,0">
             <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Margin="0,20,0,0">
                 <Label Text="WeatherApp" FontSize="25" TextColor="White" HorizontalOptions="CenterAndExpand" Margin="10,0,10,40"/>
-                <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="Start" HeightRequest="50" BackgroundColor="LightGray" Margin="5">
+                <StackLayout Style="{StaticResource TapStackLayoutStyle}">
                     <StackLayout.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding NavigateCommand}" CommandParameter="CustomNavigationPage/YourWeatherPage" />
                     </StackLayout.GestureRecognizers>
-                    <Label Text="Your Wheather" TextColor="White" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand"/>
+                    <Label Text="Your Wheather" Style="{StaticResource TapLabelStyleMasterDetail}"/>
                 </StackLayout>
 
-                <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="Start" HeightRequest="50" BackgroundColor="LightGray" Margin="5">
+                <StackLayout Style="{StaticResource TapStackLayoutStyle}">
                 <StackLayout.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding NavigateCommand}" CommandParameter="CustomNavigationPage/YourCitiesPage" />
                 </StackLayout.GestureRecognizers>
-                <Label Text="Cities" TextColor="White" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand"/>
+                    <Label Text="Cities" Style="{StaticResource TapLabelStyleMasterDetail}"/>
                 </StackLayout>
             </StackLayout>
 

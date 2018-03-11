@@ -2,8 +2,86 @@
 <prism:PrismApplication xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:prism="clr-namespace:Prism.Unity;assembly=Prism.Unity.Forms" x:Class="WeatherApp.App">
     <Application.Resources>
         <!-- Application resource dictionary -->
+        <ResourceDictionary>
 
+            <!-- Global colors -->
+            <Color x:Key="DarkGray">DarkGray</Color>
+            <Color x:Key="Gray">Gray</Color>
+            <Color x:Key="LightGray">LightGray</Color>
+            <Color x:Key="White">White</Color>
 
-        
+            <!-- Master Detail Styles -->
+            <Style x:Key="TapStackLayoutStyle" TargetType="StackLayout">
+                <Setter Property="HorizontalOptions" Value="FillAndExpand"/>
+                <Setter Property="VerticalOptions" Value="Start"/>
+                <Setter Property="HeightRequest" Value="50"/>
+                <Setter Property="BackgroundColor" Value="{DynamicResource LightGray}"/>
+                <Setter Property="Margin" Value="5"/>
+            </Style>
+            <Style x:Key="TapLabelStyleMasterDetail" TargetType="Label">
+                <Setter Property="TextColor" Value="{DynamicResource White}"/>
+                <Setter Property="VerticalOptions" Value="CenterAndExpand"/>
+                <Setter Property="HorizontalOptions" Value="CenterAndExpand"/>
+            </Style>
+
+            <!-- Your Weather Styles -->
+            <Style x:Key="ActivityIndicatorStyle" TargetType="ActivityIndicator">
+                <Setter Property="Color" Value="{DynamicResource White}"/>
+                <Setter Property="VerticalOptions" Value="CenterAndExpand"/>
+                <Setter Property="HorizontalOptions" Value="CenterAndExpand"/>
+                <Setter Property="HeightRequest" Value="150"/>
+            </Style>
+            <Style x:Key="DateStyle" TargetType="Label">
+                <Setter Property="TextColor" Value="{DynamicResource White}"/>
+                <Setter Property="FontSize" Value="18"/>
+                <Setter Property="HorizontalOptions" Value="CenterAndExpand"/>
+                <Setter Property="Margin" Value="10"/>
+            </Style>
+            <Style x:Key="ImageStyle" TargetType="Image">
+                <Setter Property="Aspect" Value="Fill"/>
+                <Setter Property="HeightRequest" Value="100"/>
+                <Setter Property="WidthRequest" Value="100"/>
+                <Setter Property="HorizontalOptions" Value="CenterAndExpand"/>
+                <Setter Property="Margin" Value="10,0,10,10"/>
+            </Style>
+            <Style x:Key="TextLarge" TargetType="Label">
+                <Setter Property="TextColor" Value="{DynamicResource White}"/>
+                <Setter Property="FontSize" Value="27"/>
+                <Setter Property="HorizontalOptions" Value="CenterAndExpand"/>
+                <Setter Property="Margin" Value="5,5,5,0"/>
+            </Style>
+            <Style x:Key="TextMedium" TargetType="Label">
+                <Setter Property="TextColor" Value="{DynamicResource White}"/>
+                <Setter Property="FontSize" Value="20"/>
+                <Setter Property="HorizontalOptions" Value="CenterAndExpand"/>
+            </Style>
+            <Style x:Key="TextSmall" TargetType="Label">
+                <Setter Property="TextColor" Value="{DynamicResource Gray}"/>
+                <Setter Property="FontSize" Value="16"/>
+                <Setter Property="HorizontalOptions" Value="CenterAndExpand"/>
+                <Setter Property="Margin" Value="5"/>
+            </Style>
+
+            <!-- City Page Styles -->
+            <Style x:Key="SearchBarStyle" TargetType="SearchBar">
+                <Setter Property="TextColor" Value="{DynamicResource White}"/>
+                <Setter Property="BackgroundColor" Value="{DynamicResource Gray}"/>
+                <Setter Property="HorizontalOptions" Value="FillAndExpand"/>
+                <Setter Property="VerticalOptions" Value="StartAndExpand"/>
+            </Style>
+            <Style x:Key="ListLabelStyle" TargetType="Label">
+                <Setter Property="VerticalOptions" Value="CenterAndExpand"/>
+                <Setter Property="Margin" Value="20,10,10,10"/>
+                <Setter Property="FontSize" Value="Large"/>
+                <Setter Property="TextColor" Value="{DynamicResource White}"/>
+            </Style>
+            <Style x:Key="ListViewStyle" TargetType="ListView">
+                <Setter Property="SeparatorVisibility" Value="Default"/>
+                <Setter Property="SeparatorColor" Value="{DynamicResource DarkGray}"/>
+                <Setter Property="VerticalOptions" Value="FillAndExpand"/>
+            </Style>
+
+        </ResourceDictionary>
+
     </Application.Resources>
 </prism:PrismApplication>
