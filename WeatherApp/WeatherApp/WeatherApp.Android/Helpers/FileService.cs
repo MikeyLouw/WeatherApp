@@ -36,17 +36,20 @@ namespace WeatherApp.Droid.Helpers
                 var folderpath = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
                 var filePath = Path.Combine(folderpath, string.Format("{0}.json.gz", name));
 
-                using (FileStream fInStream = new FileStream(filePath, FileMode.Open, FileAccess.Read))
+                if (!FileExists("temp", ".txt"))
                 {
-                    using (GZipStream zipStream = new GZipStream(fInStream, CompressionMode.Decompress))
+                    using (FileStream fInStream = new FileStream(filePath, FileMode.Open, FileAccess.Read))
                     {
-                        using (FileStream fOutStream = new FileStream(folderpath + "temp.txt", FileMode.Create, FileAccess.Write))
+                        using (GZipStream zipStream = new GZipStream(fInStream, CompressionMode.Decompress))
                         {
-                            byte[] tempBytes = new byte[5000000];
-                            int i;
-                            while ((i = zipStream.Read(tempBytes, 0, tempBytes.Length)) != 0)
+                            using (FileStream fOutStream = new FileStream(folderpath + "temp.txt", FileMode.Create, FileAccess.Write))
                             {
-                                fOutStream.Write(tempBytes, 0, i);
+                                byte[] tempBytes = new byte[5000000];
+                                int i;
+                                while ((i = zipStream.Read(tempBytes, 0, tempBytes.Length)) != 0)
+                                {
+                                    fOutStream.Write(tempBytes, 0, i);
+                                }
                             }
                         }
                     }
@@ -74,9 +77,9 @@ namespace WeatherApp.Droid.Helpers
             }
         }
 
-        public bool FileExists(string name){
+        public bool FileExists(string name, string extention){
             var folderpath = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
-            var filePath = Path.Combine(folderpath, string.Format("{0}.json.gz", name));
+            var filePath = Path.Combine(folderpath, string.Format("{0}{1}", new object[2] { name, extention }));
             return System.IO.File.Exists(filePath);
         }
     }

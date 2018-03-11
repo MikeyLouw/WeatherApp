@@ -40,7 +40,7 @@ namespace WeatherAppUnitTests.ViewModels
         public void LoadCities_FileExists_Success_CitiesNotNull()
         {
             //Arrange
-            mockFileService.Setup(x => x.FileExists("Name")).Returns(true);
+            mockFileService.Setup(x => x.FileExists("Name", "extention")).Returns(true);
             mockFileService.Setup(x => x.ReadFile("File")).ReturnsAsync(JsonConvert.SerializeObject(new WeatherApp.Models.City.Welcome()
             {
                 Country = "South Africa",
@@ -78,7 +78,7 @@ namespace WeatherAppUnitTests.ViewModels
         public void LoadCities_Error_ThrowsReadFileException()
         {
             //Arrange
-            mockFileService.Setup(x => x.FileExists("File")).Returns(true);
+            mockFileService.Setup(x => x.FileExists("File", "extention")).Returns(true);
             mockFileService.Setup(x => x.ReadFile("File")).ThrowsAsync(new FileReadException("Error", new System.Exception()));
             mockPageDialogService.Setup(x => x.DisplayAlertAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()));
             var ViewModel = this.CreateViewModel();

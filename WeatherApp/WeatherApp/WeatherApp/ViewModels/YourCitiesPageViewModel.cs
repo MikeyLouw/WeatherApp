@@ -83,7 +83,7 @@ namespace WeatherApp.ViewModels
             {
                 Loading = true;
 
-                if (fileService.FileExists(Constants.FILE_NAME))
+                if (fileService.FileExists(Constants.FILE_NAME, ".json.gz"))
                 {
                     var DeserializedObject = JsonConvert.DeserializeObject<List<WeatherApp.Models.City.Welcome>>(await fileService.ReadFile(Constants.FILE_NAME));
                     list = new ObservableCollection<Models.City.Welcome>(DeserializedObject);

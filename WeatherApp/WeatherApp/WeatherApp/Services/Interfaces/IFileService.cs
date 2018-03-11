@@ -9,6 +9,6 @@ namespace WeatherApp.Services.Interfaces
         void SaveFile(byte[] file, string name);
         Task<string> ReadFile(string name);
         void DeleteFile(string name);
-        bool FileExists(string name);
+        bool FileExists(string name, string extention);
     }
 }
