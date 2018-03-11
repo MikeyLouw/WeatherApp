@@ -30,20 +30,6 @@ namespace WeatherAppUnitTests.Services.Implementation
             this.mockRepository.VerifyAll();
         }
 
-        [Test]
-        public void TestMethod1()
-        {
-            // Arrange
-
-
-            // Act
-            APIService service = this.CreateService();
-
-
-            // Assert
-
-        }
-
         private APIService CreateService()
         {
             return new APIService(

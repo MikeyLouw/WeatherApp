@@ -10,7 +10,7 @@
              Title="Weather" 
              x:Class="WeatherApp.Views.YourWeatherPage"
              NavigationPage.HasNavigationBar="true"
-             BackgroundColor="Gray">
+             BackgroundColor="LightGray">
 
     <ContentPage.Content>
         <StackLayout Orientation="Vertical" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
@@ -20,7 +20,7 @@
             <Image Source="{Binding WeatherImage}" Aspect="Fill" HeightRequest="100" WidthRequest="100" HorizontalOptions="CenterAndExpand" Margin="10,0,10,10" />
             <Label Text="{Binding MaxTemp}" FontSize="27" TextColor="White" HorizontalOptions="CenterAndExpand" Margin="5,5,5,0" />
             <Label Text="{Binding MinTemp}" FontSize="20" TextColor="White" HorizontalOptions="CenterAndExpand" />
-            <Label Text="{Binding Location}" FontSize="16" TextColor="LightGray" HorizontalOptions="CenterAndExpand" Margin="5" />
+            <Label Text="{Binding Location}" FontSize="16" TextColor="Gray" HorizontalOptions="CenterAndExpand" Margin="5" />
         </StackLayout>
     </ContentPage.Content>
 

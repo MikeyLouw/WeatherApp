@@ -29,20 +29,6 @@ namespace WeatherAppUnitTests.ViewModels
             this.mockRepository.VerifyAll();
         }
 
-        [Test]
-        public void TestMethod1()
-        {
-            // Arrange
-
-
-            // Act
-            WeatherMasterDetailViewModel viewModel = this.CreateViewModel();
-
-
-            // Assert
-
-        }
-
         private WeatherMasterDetailViewModel CreateViewModel()
         {
             return new WeatherMasterDetailViewModel(

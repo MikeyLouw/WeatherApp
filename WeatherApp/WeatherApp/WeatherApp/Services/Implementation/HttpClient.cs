@@ -5,45 +5,50 @@ using WeatherApp.Services.Interfaces;
 using Plugin.Geolocator.Abstractions;
 using System.IO;
 using System.Net.Http.Headers;
+using WeatherApp.Settings;
+using WeatherApp.Exceptions;
 
 namespace WeatherApp.Services.Implementation
 {
     public class HttpClientService : IHttpClient
     {
-        public static HttpClient _HttpClient;
+        private static HttpClient _HttpClient = new HttpClient();
 
         public HttpClientService()
         {
-            _HttpClient = new HttpClient();
         }
 
         public async Task<HttpResponseMessage> Get(Position location)
         {
             try
             {
-                _HttpClient.BaseAddress = new Uri("http://api.openweathermap.org/data/2.5/weather?units=metric&lat=" + location.Latitude.ToString() + "&lon=" + location.Longitude.ToString() + "&APPID=fbf2a0cc41b369f34bb58e2fc36c2199");
-                var responseMessage = await _HttpClient.GetAsync("");
-                return responseMessage;
+                _HttpClient.BaseAddress = new Uri(Constants.URL_WEATHER + location.Latitude.ToString() + "&lon=" + location.Longitude.ToString() + "&APPID=" + Constants.KEY_OPENWEATHER);
+                return await _HttpClient.GetAsync("");
+            }
+            catch(ArgumentNullException ex)
+            {
+                throw new ArgumentNullException("Error while sending request.", ex);
             }
             catch (Exception ex)
             {
-                throw new Exception(ex.Message, ex);
+                throw new GeneralException(ex.Message, ex);
             }
         }
 
-        public async Task<byte[]> Post()
+        public async Task<byte[]> DownloadFile()
         {
             try
             {
-                _HttpClient.BaseAddress = new Uri("http://bulk.openweathermap.org/sample/city.list.json.gz");
-                _HttpClient.DefaultRequestHeaders.Accept.Add(MediaTypeWithQualityHeaderValue.Parse("application/octet-stream"));
-                var response = await _HttpClient.GetByteArrayAsync("");
-                _HttpClient.DefaultRequestHeaders.Clear();
-                return response;
+                _HttpClient.BaseAddress = new Uri(Constants.URL_CITIES);
+                return await _HttpClient.GetByteArrayAsync("");
+            }
+            catch (ArgumentNullException ex)
+            {
+                throw new ArgumentNullException("Error while sending request.", ex);
             }
             catch (Exception ex)
             {
-                throw new Exception(ex.Message, ex);
+                throw new GeneralException(ex.Message, ex);
             }
         }
     }

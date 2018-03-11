@@ -12,6 +12,7 @@ using Prism.Mvvm;
 using System.Xml;
 using Plugin.Geolocator;
 using Plugin.Geolocator.Abstractions;
+using WeatherApp.Settings;
 
 namespace WeatherApp.ViewModels
 {
@@ -21,8 +22,8 @@ namespace WeatherApp.ViewModels
         IFileService fileService;
         IGeoService geoService;
 
-        string DegreeSymbol = "°";
-        string BaseUrlImage = "http://openweathermap.org/img/w/";
+        readonly string DegreeSymbol = "°";
+        readonly string BaseUrlImage = Constants.URL_WEATHERICON;
 
         private bool _Loading;
         public bool Loading
@@ -73,21 +74,28 @@ namespace WeatherApp.ViewModels
             this.geoService = geoService;
         }
 
-        public async Task LoadWeatherData() {
+        public async Task LoadWeatherData()
+        {
             try
             {
+                Loading = true;
+
                 var result = await this.aPIService.GetWeather<Models.Weather.Welcome>();
                 var CountryName = await this.geoService.GetCountryName();
 
-                Date = "TODAY, " + DateTime.Today.Day + " " + DateTime.Today.ToString("MMMM") + " " + DateTime.Today.Year;
+                Date = string.Format("TODAY, {0} {1} {2}", new object[3] { DateTime.Today.Day, DateTime.Today.ToString("MMMM"), DateTime.Today.Year});
                 WeatherImage = ImageSource.FromUri(new Uri(BaseUrlImage + result.Weather.FirstOrDefault().Icon + ".png"));
-                MaxTemp = "max " + result.Main.TempMax + DegreeSymbol + "C";
-                MinTemp = "min " + result.Main.TempMin + DegreeSymbol + "C";
-                Location = result.Name + ", " + CountryName;
+                MaxTemp = string.Format("max {0}{1}C", new object[2] { result.Main.TempMax, DegreeSymbol });
+                MinTemp = string.Format("min {0}{1}C", new object[2] { result.Main.TempMin, DegreeSymbol });
+                Location = string.Format("{0},{1}", new object[2] { result.Name, CountryName });
             }
             catch (Exception ex)
             {
                 await pageDialogService.DisplayAlertAsync("Attention", ex.Message, "OK");
+            }
+            finally
+            {
+                Loading = false;
             }
         }
 
@@ -97,9 +105,7 @@ namespace WeatherApp.ViewModels
 
         public async void OnNavigatedTo(NavigationParameters parameters)
         {
-            Loading = true;
             await this.LoadWeatherData();
-            Loading = false;
         }
 
         public void OnNavigatingTo(NavigationParameters parameters)

@@ -1,9 +1,4 @@
-﻿// To parse this JSON data, add NuGet 'Newtonsoft.Json' then do:
-//
-//    using QuickType;
-//
-//    var welcome = Welcome.FromJson(jsonString);
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Net;
 

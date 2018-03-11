@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
+using WeatherApp.Exceptions.FileExceptions;
 using WeatherApp.Services.Interfaces;
 
 namespace WeatherApp.ViewModels
@@ -17,7 +18,7 @@ namespace WeatherApp.ViewModels
         IFileService fileService;
         IAPIService aPIService;
 
-        ObservableCollection<WeatherApp.Models.City.Welcome> list = new ObservableCollection<Models.City.Welcome>();
+        ObservableCollection<WeatherApp.Models.City.Welcome> list;
 
         private bool _Loading;
         public bool Loading
@@ -36,10 +37,16 @@ namespace WeatherApp.ViewModels
                 }
                 else
                 {
-                    Cities = new ObservableCollection<Models.City.Welcome>(list.Where(x => x.Name.ToLower().Contains(value.ToLower())).ToList());
+                    search(value);
                 }
                 SetValue(ref _Search, value);
             }
+        }
+
+        private async void search(string value)
+        {
+            if (Cities != null && list != null && list.Count > 0 && Cities.Count > 0)
+            Cities = new ObservableCollection<Models.City.Welcome>(list.Where(x => x.Name.ToLower().Contains(value.ToLower())).OrderByDescending(x => x.Country == "ZA"));
         }
 
         private ObservableCollection<WeatherApp.Models.City.Welcome> _Cities;
@@ -56,56 +63,54 @@ namespace WeatherApp.ViewModels
             this.aPIService = aPIService;
         }
 
-        public async void SetupList()
-        {
-            try
-            {
-                var stringResult = await fileService.ReadFile("City_List");
-                list = new ObservableCollection<Models.City.Welcome>(JsonConvert.DeserializeObject<List<WeatherApp.Models.City.Welcome>>(stringResult));
-            }
-            catch (Exception ex)
-            {
-                await pageDialogService.DisplayAlertAsync("Attention", ex.Message, "OK");             
-            }
-        }
-
         public void OnNavigatedFrom(NavigationParameters parameters)
         {
         }
 
-        public void OnNavigatedTo(NavigationParameters parameters)
+        public async void OnNavigatedTo(NavigationParameters parameters)
+        {
+            await this.LoadCities();
+        }
+
+        public void OnNavigatingTo(NavigationParameters parameters)
         {
         }
 
-        public async void OnNavigatingTo(NavigationParameters parameters)
-        {
-            Loading = true;
-            await DownloadCities();
-        }
-
-        public async Task DownloadCities()
+        public async Task LoadCities()
         {
             try
             {
-                var IsSuccessfulDownload = true;
-                fileService.DeleteFile("City_List");
-                if (!fileService.FileExists("City_List"))
-                {
-                    IsSuccessfulDownload = await this.aPIService.GetLatestCities();
-                }
+                Loading = true;
 
-                if (IsSuccessfulDownload)
+                if (fileService.FileExists("City_List"))
                 {
+                    var DeserializedObject = JsonConvert.DeserializeObject<List<WeatherApp.Models.City.Welcome>>(await fileService.ReadFile("City_List"));
+                    list = new ObservableCollection<Models.City.Welcome>(DeserializedObject);
+                    Cities = new ObservableCollection<Models.City.Welcome>(DeserializedObject);
+                }
+                else
+                {
+                    await aPIService.GetLatestCities();
                     var ReadStringFromFileSystem = await this.fileService.ReadFile("City_List");
-                    var ReturnedCities = JsonConvert.DeserializeObject<List<WeatherApp.Models.City.Welcome>>(ReadStringFromFileSystem);
-                    Cities = new ObservableCollection<WeatherApp.Models.City.Welcome>(ReturnedCities);
+                    var DeserializedObject = JsonConvert.DeserializeObject<List<WeatherApp.Models.City.Welcome>>(ReadStringFromFileSystem);
+                    Cities = new ObservableCollection<WeatherApp.Models.City.Welcome>(DeserializedObject.OrderByDescending(x => x.Country == "ZA"));
+                    list = new ObservableCollection<WeatherApp.Models.City.Welcome>(DeserializedObject.OrderByDescending(x => x.Country == "ZA"));
                 }
-
-                Loading = false;
+            }
+            catch(FileWriteException ex)
+            {
+                await pageDialogService.DisplayAlertAsync("Attention", ex.Message, "OK");
+            }
+            catch(FileReadException ex)
+            {
+                await pageDialogService.DisplayAlertAsync("Attention", ex.Message, "OK");
             }
             catch (Exception ex)
             {
                 await pageDialogService.DisplayAlertAsync("Attention", ex.Message, "OK");
+            }
+            finally
+            {
                 Loading = false;
             }
         }

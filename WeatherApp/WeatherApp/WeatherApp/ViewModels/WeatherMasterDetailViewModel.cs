@@ -25,7 +25,6 @@ namespace WeatherApp.ViewModels
             }
             catch(Exception ex)
             {
-                //This throws an error can't navigate
                 await pageDialogService.DisplayAlertAsync("Attention", ex.Message, "OK");
             }
         }

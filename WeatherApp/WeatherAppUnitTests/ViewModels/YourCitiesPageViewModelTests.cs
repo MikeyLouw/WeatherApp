@@ -34,20 +34,6 @@ namespace WeatherAppUnitTests.ViewModels
             this.mockRepository.VerifyAll();
         }
 
-        [Test]
-        public void TestMethod1()
-        {
-            // Arrange
-
-
-            // Act
-            YourCitiesPageViewModel viewModel = this.CreateViewModel();
-
-
-            // Assert
-
-        }
-
         private YourCitiesPageViewModel CreateViewModel()
         {
             return new YourCitiesPageViewModel(

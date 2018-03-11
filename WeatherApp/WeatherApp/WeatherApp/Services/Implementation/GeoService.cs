@@ -4,7 +4,7 @@ using WeatherApp.Services.Interfaces;
 using Plugin.Geolocator;
 using Plugin.Geolocator.Abstractions;
 using System.Linq;
-
+using WeatherApp.Exceptions;
 
 namespace WeatherApp.Services.Implementation
 {
@@ -18,28 +18,28 @@ namespace WeatherApp.Services.Implementation
         {
             try
             {
-                if (CrossGeolocator.IsSupported){
-                    var a = CrossGeolocator.Current.IsGeolocationEnabled;
-                    var b = CrossGeolocator.Current.IsGeolocationAvailable;
-                    var position = await CrossGeolocator.Current.GetPositionAsync();
-                    var locationDetails = await CrossGeolocator.Current.GetAddressesForPositionAsync(position);
+                if (CrossGeolocator.IsSupported) {
+                    var locationDetails = await CrossGeolocator.Current.GetAddressesForPositionAsync(await CrossGeolocator.Current.GetPositionAsync());
                     return locationDetails.FirstOrDefault().CountryName;
                 }
                 else{
                     throw new NotSupportedException();
                 }
             }
+            catch(ArgumentNullException ex)
+            {
+                throw new ArgumentNullException("No data was returned", ex);
+            }
             catch (Exception ex)
             {
-                throw new Exception("An error occured", ex);
+                throw new GeneralException(ex.Message, ex);
             }
         }
 
         public async Task<Position> GetLocation()
         {
             if (CrossGeolocator.IsSupported){
-                var res = await CrossGeolocator.Current.GetPositionAsync();
-                return res;
+                return await CrossGeolocator.Current.GetPositionAsync();
             }
             else{
                 throw new NotSupportedException();

@@ -8,7 +8,7 @@ namespace WeatherApp.Services.Interfaces
 {
     public interface IHttpClient
     {
-        Task<byte[]> Post();
+        Task<byte[]> DownloadFile();
         Task<HttpResponseMessage> Get(Position location);
     }
 }

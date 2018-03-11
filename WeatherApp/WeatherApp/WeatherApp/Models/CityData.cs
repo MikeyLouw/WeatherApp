@@ -1,19 +1,13 @@
-﻿// To parse this JSON data, add NuGet 'Newtonsoft.Json' then do:
-//
-//    using QuickType;
-//
-//    var welcome = Welcome.FromJson(jsonString);
+﻿using System;
+using System.Collections.Generic;
+using System.Net;
+
+using System.Globalization;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 namespace WeatherApp.Models.City
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Net;
-
-    using System.Globalization;
-    using Newtonsoft.Json;
-    using Newtonsoft.Json.Converters;
-
     public partial class Welcome
     {
         [JsonProperty("id")]

@@ -8,6 +8,8 @@ using System.Diagnostics;
 using System.Xml.Linq;
 using System.IO;
 using System.Text;
+using WeatherApp.Exceptions;
+using WeatherApp.Exceptions.FileExceptions;
 
 namespace WeatherApp.Services.Implementation
 {
@@ -28,25 +30,20 @@ namespace WeatherApp.Services.Implementation
         {
             try
             {
-                var location = await geoService.GetLocation();
-
-                var responseMessage = await this.httpClient.Get(location);
-
-                var contentBody = await responseMessage.Content.ReadAsStringAsync();
-                var responseObject = JsonConvert.DeserializeObject<T>(contentBody);
-                return responseObject;
+                var responseMessage = await this.httpClient.Get(await geoService.GetLocation());
+                return JsonConvert.DeserializeObject<T>(await responseMessage.Content.ReadAsStringAsync());
             }
             catch (NotSupportedException ex)
             {
-                throw new Exception("Location services not supported on your device.", ex);
+                throw new NotSupportedException("Not supported", ex);
             }
             catch (JsonSerializationException ex)
             {
-                throw new Exception("No data was returned", ex);
+                throw new JsonSerializationException("Request error, unable to retrieve the data.", ex);
             }
             catch (Exception ex)
             {
-                throw new Exception("An Error occured", ex);
+                throw new GeneralException(ex.Message, ex);
             }
         }
 
@@ -54,29 +51,17 @@ namespace WeatherApp.Services.Implementation
         {
             try
             {
-                var response = await httpClient.Post();
-                fileService.SaveFile(response, "City_List");
-                var text = await fileService.ReadFile("City_List");
-
-                var newtext = UTF8toASCII(text);
-
+                fileService.SaveFile(await httpClient.DownloadFile(), "City_List");
                 return true;
+            }
+            catch (FileWriteException ex)
+            {
+                throw new FileWriteException(ex.Message, ex);
             }
             catch (Exception ex)
             {
-                throw new Exception("An Error occured", ex);
+                throw new GeneralException(ex.Message, ex);
             }
-        }
-
-        public static string UTF8toASCII(string text)
-        {
-            System.Text.Encoding utf8 = System.Text.Encoding.UTF8;
-            Byte[] encodedBytes = utf8.GetBytes(text);
-            Byte[] convertedBytes =
-                    Encoding.Convert(Encoding.UTF8, Encoding.ASCII, encodedBytes);
-            System.Text.Encoding ascii = System.Text.Encoding.ASCII;
-
-            return ascii.GetString(convertedBytes);
         }
     }
 }

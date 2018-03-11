@@ -4,6 +4,7 @@ using System.IO.Compression;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+using WeatherApp.Exceptions.FileExceptions;
 using WeatherApp.Services.Interfaces;
 
 namespace WeatherApp.Droid.Helpers
@@ -16,40 +17,61 @@ namespace WeatherApp.Droid.Helpers
 
         public void DeleteFile(string name)
         {
-            var folderpath = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
-            var filePath = Path.Combine(folderpath, string.Format("{0}.json.gz", name));
-            System.IO.File.Delete(filePath);
+            try
+            {
+                var folderpath = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
+                var filePath = Path.Combine(folderpath, string.Format("{0}.json", name));
+                System.IO.File.Delete(filePath);
+            }
+            catch (Exception ex)
+            {
+                throw new FileDeleteException("Error while deleting a file.", ex);
+            }
         }
 
         public async Task<string> ReadFile(string name)
         {
-            var folderpath = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
-            var filePath = Path.Combine(folderpath, string.Format("{0}.json.gz", name));
-
-            using (FileStream fInStream = new FileStream(filePath, FileMode.Open, FileAccess.Read))
+            try
             {
-                using (GZipStream zipStream = new GZipStream(fInStream, CompressionMode.Decompress))
+                var folderpath = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
+                var filePath = Path.Combine(folderpath, string.Format("{0}.json", name));
+
+                using (FileStream fInStream = new FileStream(filePath, FileMode.Open, FileAccess.Read))
                 {
-                    using (FileStream fOutStream = new FileStream(folderpath + "temp.txt", FileMode.Create, FileAccess.Write))
+                    using (GZipStream zipStream = new GZipStream(fInStream, CompressionMode.Decompress))
                     {
-                        byte[] tempBytes = new byte[5000000];
-                        int i;
-                        while ((i = zipStream.Read(tempBytes, 0, tempBytes.Length)) != 0)
+                        using (FileStream fOutStream = new FileStream(folderpath + "temp.txt", FileMode.Create, FileAccess.Write))
                         {
-                            fOutStream.Write(tempBytes, 0, i);
+                            byte[] tempBytes = new byte[5000000];
+                            int i;
+                            while ((i = zipStream.Read(tempBytes, 0, tempBytes.Length)) != 0)
+                            {
+                                fOutStream.Write(tempBytes, 0, i);
+                            }
                         }
                     }
                 }
-            }
 
-            return File.ReadAllText(folderpath + "temp.txt");
+                return File.ReadAllText(folderpath + "temp.txt");
+            }
+            catch (Exception ex)
+            {
+                throw new FileReadException("Unable to read a file.", ex);
+            }
         }
 
         public void SaveFile(byte[] file, string name)
         {
-            var folderpath = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
-            var filePath = Path.Combine(folderpath, string.Format("{0}.json.gz", name));
-            System.IO.File.WriteAllBytes(filePath, file);
+            try
+            {
+                var folderpath = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
+                var filePath = Path.Combine(folderpath, string.Format("{0}.json", name));
+                System.IO.File.WriteAllBytes(filePath, file);
+            }
+            catch (Exception ex)
+            {
+                throw new FileWriteException("Unable to save file. Storage could be full.", ex);
+            }
         }
 
         public bool FileExists(string name){
